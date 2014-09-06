@@ -4,10 +4,10 @@ galaxy_info:
   description: library for setting of uci config keys on openwrt systems
   license: BSD
   min_ansible_version: 1.7
-  platforms:
-    - Openwrt
-    versions:
-      - 14.07
+  platforms: []
+  # - Openwrt
+  # versions:
+  # - 14.07
   categories:
     - system
 dependencies: []

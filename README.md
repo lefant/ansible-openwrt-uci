@@ -4,10 +4,10 @@ openwrt-uci
 setting of uci config keys on openwrt systems. this is just the
 library module so that other openwrt roles can dependend on it.
 
-check out https://github.com/lefant/ansible-openwrt for an example on
+check out [https://github.com/lefant/ansible-openwrt] for an example on
 how it can be used.
 
-compare: http://wiki.openwrt.org/doc/techref/uci
+compare: [http://wiki.openwrt.org/doc/uci] and [http://wiki.openwrt.org/doc/techref/uci]
 
 Requirements
 ------------
@@ -25,4 +25,11 @@ BSD
 Author Information
 ------------------
 
-Fabian Linzberger, http://e.lefant.net/
+Fabian Linzberger, [http://e.lefant.net/]
+
+
+
+[https://github.com/lefant/ansible-openwrt]: https://github.com/lefant/ansible-openwrt
+[http://wiki.openwrt.org/doc/uci]: http://wiki.openwrt.org/doc/uci
+[http://wiki.openwrt.org/doc/techref/uci]: http://wiki.openwrt.org/doc/techref/uci
+[http://e.lefant.net/]: http://e.lefant.net/
