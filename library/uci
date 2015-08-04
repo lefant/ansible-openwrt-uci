@@ -21,8 +21,8 @@ esac
 
 if [ $changed -eq 0 ]
 then
-    echo "changed=False"
+    echo -n '{"changed": "False"}'
 else
     uci "${command}" "${key}=${value}"
-    echo "changed=True msg='executed uci $command ${key}=${value}'"
+    echo -n '{"changed": "True", "msg": "executed uci $command ${key}=${value}"}'
 fi
