@@ -23,6 +23,8 @@ if [ $changed -eq 0 ]
 then
     echo -n '{"changed": false}'
 else
-    uci "${command}" "${key}=${value}"
-    echo -n '{"changed": true, "msg": "executed uci $command ${key}=${value}"}'
+    if [ -z "${_ansible_check_mode}" -o "${_ansible_check_mode}" = "False" ]; then
+        uci "${command}" "${key}=${value}" >/dev/null 2>&1
+    fi
+    echo -n '{"changed": true, "msg": "executed uci '$command' '${key}'='${value}'"}'
 fi
