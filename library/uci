@@ -5,16 +5,27 @@
 # TODO: add more docs, see http://docs.ansible.com/developing_modules.html
 
 # parameters are command, key, value
-source ${1}
+for param in $(cat ${1})
+do
+    case "$param" in
+        command=*|key=*|value=*)
+            eval "$param"
+            ;;
+        *)
+            ;;
+    esac
+done
+
+unquoted_key="$(echo $key | sed -e s/\'//g)"
 
 # test if we need to apply a change
 case $command in
     'set')
-        [ $(uci get "${key}") = "${value}" ]
+        [ $(uci get "$unquoted_key") = "$value" ]
         changed=$?
         ;;
     'add_list')
-        uci get "$key" 2>/dev/null |grep -q "$value"
+        uci get "$unquoted_key" 2>/dev/null |grep -q "$value"
         changed=$?
         ;;
 esac
@@ -23,8 +34,9 @@ if [ $changed -eq 0 ]
 then
     echo -n '{"changed": false}'
 else
-    if [ -z "${_ansible_check_mode}" -o "${_ansible_check_mode}" = "False" ]; then
-        uci "${command}" "${key}=${value}" >/dev/null 2>&1
+    if [ -z "${_ansible_check_mode}" -o "${_ansible_check_mode}" = "False" ]
+    then
+        logger uci $(uci "${command}" ${unquoted_key}="${value}")
     fi
-    echo -n '{"changed": true, "msg": "executed uci '$command' '${key}'='${value}'"}'
+    echo -n '{"changed": true, "msg": "executed uci '${command}' '${unquoted_key}'='${value}'"}'
 fi
