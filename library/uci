@@ -12,7 +12,7 @@ unquoted_key="$(echo $key | sed -e s/\'//g)"
 # test if we need to apply a change
 case $command in
     'set')
-        [ $(uci get "$unquoted_key") = "$value" ]
+        [ "$(uci get "$unquoted_key")" = "$value" ]
         changed=$?
         ;;
     'add_list')
