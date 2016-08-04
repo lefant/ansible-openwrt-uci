@@ -5,23 +5,14 @@
 # TODO: add more docs, see http://docs.ansible.com/developing_modules.html
 
 # parameters are command, key, value
-for param in $(cat ${1})
-do
-    case "$param" in
-        command=*|key=*|value=*)
-            eval "$param"
-            ;;
-        *)
-            ;;
-    esac
-done
+source ${1}
 
 unquoted_key="$(echo $key | sed -e s/\'//g)"
 
 # test if we need to apply a change
 case $command in
     'set')
-        [ $(uci get "$unquoted_key") = "$value" ]
+        [ "$(uci get "$unquoted_key")" = "$value" ]
         changed=$?
         ;;
     'add_list')
