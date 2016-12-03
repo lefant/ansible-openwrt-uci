@@ -8,6 +8,7 @@
 source ${1}
 
 unquoted_key="$(echo $key | sed -e s/\'//g)"
+unquoted_value="$(echo $value | sed -e s/\'//g)"
 
 # test if we need to apply a change
 case $command in
@@ -27,7 +28,7 @@ then
 else
     if [ -z "${_ansible_check_mode}" -o "${_ansible_check_mode}" = "False" ]
     then
-        logger uci $(uci "${command}" ${unquoted_key}="${value}")
+        logger uci $(uci "${command}" ${unquoted_key}="${unquoted_value}")
     fi
     echo -n '{"changed": true, "msg": "executed uci '${command}' '${unquoted_key}'='${value}'"}'
 fi
